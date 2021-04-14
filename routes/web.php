@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SiteController;
 use App\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -26,6 +27,4 @@ Route::get('/create-post', function(){
     return 'ok';
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index']);
