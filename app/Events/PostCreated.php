@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
 
 class PostCreated implements ShouldBroadcast
 {
@@ -33,5 +34,15 @@ class PostCreated implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('post-created');
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'post' => [
+                'name' => $this->post->title,
+                'date' => Carbon::parse($this->post->created_at)->format('d/m/Y H:i:S')
+            ]
+        ];
     }
 }
